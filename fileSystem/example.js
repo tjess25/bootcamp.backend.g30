@@ -1,9 +1,8 @@
 const fs = require('fs')
 
-const path = process.argv[2]
+//const path = process.argv[2]
 
-
-fs.writeFile('./example.txt', 'Hola Koders!!!!!', (err) => {
+/*fs.writeFile('./example.txt', 'Hola Koders!!!!!', (err) => {
     if (err) throw new Error("No se puede crear el archivo") 
     // if (err) {
     //    throw err
@@ -25,7 +24,7 @@ fs.writeFile('./example.txt', 'Hola Koders!!!!!', (err) => {
             })
         })
     })
-})
+})*/
 
 /*fs.readFile('./example.txt', 'utf-8', (err, data) => {
     if (err) throw new Error("No se puede leer el archivo")
@@ -55,3 +54,8 @@ fs.unlink('./example.txt', (err) => {
  * 6) imprime en consola "Archivo creado"
  * 7) lee el archivo --> se genera error
  */
+
+fs.mkdir('./newFolder', (err) => {
+    if (err) throw err
+    console.log("Folfer creado correctamente");
+})
