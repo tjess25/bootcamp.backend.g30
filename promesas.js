@@ -84,14 +84,12 @@ async function getUsers() {
     
 }
 
-function main() {
-    async function logUsers() {
-        let users = await getUsers()
-        console.log(users)
-    }
-    logUsers()
+async function logUsers() {
+    let users = await getUsers()
+    console.log(users)
 }
-main()
+
+logUsers()
 
 
 
