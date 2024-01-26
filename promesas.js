@@ -76,6 +76,11 @@ async function getUsers() {
             "email":"mail3@mail.com",
         }  
     ]
+    /*
+        setTimeout(() => {
+            return users  
+        }, 3000); 
+    */
     return new Promise((resolve, reject) => {
         setTimeout(() => {
             resolve(users)  

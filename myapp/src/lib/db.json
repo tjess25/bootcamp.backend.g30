@@ -1,0 +1,26 @@
+[
+    {
+        "id": 1,
+        "first_name": "Thaine",
+        "last_name": "Draper",
+        "email": "tdraper0@bloglovin.com",
+        "gender": "Male",
+        "password": "nB1)gTXtpn9"
+    },
+    {
+        "id": 2,
+        "first_name": "Bettye",
+        "last_name": "Rollin",
+        "email": "mail2@mail.com",
+        "gender": "Female",
+        "password": "fZ3<GcSf55%2rMT"
+    },
+    {
+        "id": 3,
+        "first_name": "Korie",
+        "last_name": "Gasnell",
+        "email": "kgasnell2@is.gd",
+        "gender": "Female",
+        "password": "hB5>V@1/y0s\\"
+    }
+]

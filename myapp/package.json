@@ -1,0 +1,23 @@
+{
+  "name": "myapp",
+  "version": "1.0.0",
+  "description": "primer api kodemia gen 30",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tjess25/bootcamp.backend.g30.git"
+  },
+  "author": "Jessica Tinoco",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/tjess25/bootcamp.backend.g30/issues"
+  },
+  "homepage": "https://github.com/tjess25/bootcamp.backend.g30#readme",
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}
