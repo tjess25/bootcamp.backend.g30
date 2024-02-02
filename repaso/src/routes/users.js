@@ -3,6 +3,9 @@ const router = express.Router()
 //const readFile = require('../utils/readFile')
 const { auth } = require('../middlewares/authentication')
 const User = require('../models/users')
+const UserController = require('../controllers/users')
+
+//router.get('/', auth, UserController.getAll)
 
 router.get('/', async (req, res) => {
     try {
@@ -24,7 +27,25 @@ router.get('/:id', async (req, res) => {
 })
 
 router.post('/', async (req, res) => {
-    res.send({ msg: "user created", data: {} })
+    try {
+        const newUser = req.body
+        let user = await User.create(newUser)
+        await user.save()
+        res.status(201).send({ msg: "user created", data: user})
+    } catch (error) {
+        if (error.code) {
+            switch (error.code) {
+                case 11000:
+                    res.status(400).send({ msg: "user not created", error: "Email ya registrado"})
+                    break;
+            
+                default:
+                    res.status(400).send({ msg: "user not created", error: error})
+                    break;
+            }
+            
+        }
+    }
 })
 
 router.put('/:id', auth, async (req, res) => {
