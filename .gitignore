@@ -3,3 +3,4 @@ fileSystem/.DS_Store
 .DS_Store
 myapp/node_modules
 repaso/node_modules
+repaso/.env

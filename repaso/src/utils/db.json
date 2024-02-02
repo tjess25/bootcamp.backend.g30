@@ -1,6 +1,5 @@
 [
     {
-        "id": 1,
         "first_name": "Thaine",
         "last_name": "Draper",
         "email": "tdraper0@bloglovin.com",
@@ -8,7 +7,6 @@
         "password": "nB1)gTXtpn9"
     },
     {
-        "id": 2,
         "first_name": "Bettye",
         "last_name": "Rollin",
         "email": "mail2@mail.com",
@@ -16,7 +14,6 @@
         "password": "fZ3<GcSf55%2rMT"
     },
     {
-        "id": 3,
         "first_name": "Korie",
         "last_name": "Gasnell",
         "email": "kgasnell2@is.gd",
@@ -24,7 +21,6 @@
         "password": "hB5>V@1/y0s\\"
     },
     {
-        "id": 4,
         "first_name": "Korie",
         "last_name": "Gasnell",
         "email": "kgasnell2@is.gd",
@@ -32,7 +28,6 @@
         "password": "hB5>V@1/y0s\\"
     },
     {
-        "id": 5,
         "first_name": "Koria",
         "last_name": "Gasnell",
         "email": "kgasnell2@is.gd",
@@ -40,7 +35,6 @@
         "password": "hB5>V@1/y0s\\"
     },
     {
-        "id": 6,
         "first_name": "Koria",
         "last_name": "Gasnell",
         "email": "kgasnell2@is.gd",
@@ -48,7 +42,6 @@
         "password": "hB5>V@1/y0s\\"
     },
     {
-        "id": 7,
         "first_name": "Koria",
         "last_name": "Gasnell",
         "email": "kgasnell2@is.gd",
@@ -56,7 +49,6 @@
         "password": "hB5>V@1/y0s\\"
     },
     {
-        "id": 8,
         "first_name": "Koria",
         "last_name": "Gasnell",
         "email": "kgasnell2@is.gd",

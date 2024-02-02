@@ -1,11 +1,12 @@
 const express = require('express')
 const router = express.Router()
-const readFile = require('../utils/readFile')
+//const readFile = require('../utils/readFile')
 const { auth } = require('../middlewares/authentication')
+const User = require('../models/users')
 
 router.get('/', async (req, res) => {
     try {
-        const users = await readFile()
+        const users = await User.find()
         res.send({ msg: "All users", data: users })
     } catch (error) {
         res.status(400).send({ msg: "can't get users", error: error }) 
@@ -15,8 +16,7 @@ router.get('/', async (req, res) => {
 router.get('/:id', async (req, res) => {
     const { id } = req.params
     try {
-        const users = await readFile()
-        const user = users.find((u) => u.id == id)
+        const user = await User.findById(id)
         res.send({ msg: "user", data: user })
     } catch (error) {
         res.status(400).send({ msg: "can't get user", error: error })
