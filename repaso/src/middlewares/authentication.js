@@ -9,13 +9,13 @@ function createJWT(data) {
 function verifyJWT(req, res, next) {
 
     let token = req.headers.authorization
-    token = token.split(" ")[1]
     const dateNow = new Date()
 
     if (!token) {
         res.status(401).send({ msg: "login is required" })
     }
 
+    token = token.split(" ")[1]
     jwt.verify(token, JWT_SIGN, async (err, decode) => {
         if (err) {
             res.status(401).send({ msg: "token invalid" })
