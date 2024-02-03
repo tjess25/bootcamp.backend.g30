@@ -8,6 +8,27 @@ const { isAdmin } = require('../middlewares/authorization')
 
 //router.get('/', auth, UserController.getAll)
 
+router.post('/login', async (req, res) => {
+    try {
+        const credential = req.body
+        const user = await User.findOne({email: credential.email})
+        if (!user) {
+            res.status(401).send({msg: "user not found"})
+        }
+        if (user.password != credential.password) {
+            res.status(401).send({msg: "invalid password"})
+        } else {
+            const token = createJWT({_id: user._id})
+            res.send({msg: "login user", data: token})
+        }
+        
+    } catch (error) {
+        res.status(400).send({msg: "login ivalid", error: error})
+    }   
+})
+
+router.use(verifyJWT) // ESTE MIDDLEWARE ES VALIDO PARA TODOS LOS ENDPOINTS QUE ESTAN DEBAJO
+
 router.get('/', async (req, res) => {
     try {
         const users = await User.find()
@@ -49,26 +70,7 @@ router.post('/', async (req, res) => {
     }
 })
 
-router.post('/login', async (req, res) => {
-    try {
-        const credential = req.body
-        const user = await User.findOne({email: credential.email})
-        if (!user) {
-            res.status(401).send({msg: "user not found"})
-        }
-        if (user.password != credential.password) {
-            res.status(401).send({msg: "invalid password"})
-        } else {
-            const token = createJWT({_id: user._id})
-            res.send({msg: "login user", data: token})
-        }
-        
-    } catch (error) {
-        res.status(400).send({msg: "login ivalid", error: error})
-    }   
-})
-
-router.put('/:id', verifyJWT, async (req, res) => {
+router.put('/:id', async (req, res) => {
     try {
         console.log(req.user) 
         const id = req.params.id
@@ -83,7 +85,7 @@ router.put('/:id', verifyJWT, async (req, res) => {
     }
 })
 
-router.delete('/:id', verifyJWT, isAdmin,  async (req, res) => {
+router.delete('/:id', isAdmin,  async (req, res) => {
     res.send({ msg: "user deleted", data: {} })  
 })
 
