@@ -8,7 +8,7 @@ const { connect } = require('./src/utils/db')
 const usersRoute = require('./src/routes/users')
 
 //import middlewares
-const { getRole } = require('./src/middlewares/authentication')
+const { getRole } = require('./src/middlewares/authorization')
 
 //conectar la base de datos
 connect()

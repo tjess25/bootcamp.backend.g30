@@ -1,23 +1,36 @@
-function auth(req, res, next) {
-    const auth = req.headers.authorization
+const jwt = require('jsonwebtoken')
+const JWT_SIGN = process.env.JWT_SIGN
 
-    if (auth != undefined) {
-        next()
-    } else {
-        res.status(401).send({ msg: "login is required"})
-    }
+function createJWT(data) {
+    return jwt.sign(data, JWT_SIGN, {expiresIn: '1h'})
 }
 
-function getRole(req, res, next) {
-    const role = req.headers.role
+function verifyJWT(req, res, next) {
 
-    req.user = {
-        role: role
-    }
-    next()
+    try {
+        const token = req.headers['bearerauth']
+        const dateNow = new Date()
+
+        if (!token) {
+            res.status(401).send({msg: "login is required"})
+        }
+
+        jwt.verify(token, JWT_SIGN, (err, decode) => {
+            if (err) {
+                res.status(401).send({msg: "token invalid"})
+            }
+            if (decode.exp < dateNow.getDate() / 1000) {
+                res.status(401).send({msg: "session expired"})
+            }
+            req.user = decode
+            next()
+        })
+    } catch (error) {
+        res.status(400).send({msg: "token invalid", error: error})
+    }   
 }
 
 module.exports = {
-    auth,
-    getRole
+    createJWT,
+    verifyJWT
 }

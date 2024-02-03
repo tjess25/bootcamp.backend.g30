@@ -1,9 +1,10 @@
 const express = require('express')
 const router = express.Router()
 //const readFile = require('../utils/readFile')
-const { auth } = require('../middlewares/authentication')
+const { auth } = require('../middlewares/authorization')
 const User = require('../models/users')
 const UserController = require('../controllers/users')
+const { createJWT } = require('../middlewares/authentication')
 
 //router.get('/', auth, UserController.getAll)
 
@@ -46,6 +47,26 @@ router.post('/', async (req, res) => {
             
         }
     }
+})
+
+router.post('/login', async (req, res) => {
+    try {
+        const credential = req.body
+        const user = await User.findOne({email: credential.email})
+        if (!user) {
+            res.status(401).send({msg: "user not found"})
+        }
+        if (user.password != credential.password) {
+            res.status(401).send({msg: "invalid password"})
+        } else {
+            const token = createJWT({_id: user._id, role: user.role})
+            res.send({msg: "login user", data: token})
+        }
+        
+    } catch (error) {
+        res.status(400).send({msg: "login ivalid", error: error})
+    }
+    
 })
 
 router.put('/:id', auth, async (req, res) => {
