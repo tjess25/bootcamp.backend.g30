@@ -1,23 +1,20 @@
-function auth(req, res, next) {
-    const auth = req.headers.authorization
-
-    if (auth != undefined) {
-        next()
+function isAdmin(req, res, next) {
+    if (req.user.role == "admin") {
+      next()  
     } else {
-        res.status(401).send({ msg: "login is required"})
+        res.status(401).send({msg: "insufficient privileges"})
     }
 }
 
-function getRole(req, res, next) {
-    const role = req.headers.role
-
-    req.user = {
-        role: role
+function isSeller(req, res, next) {
+    if (req.user.role == "seller") {
+      next()  
+    } else {
+        res.status(401).send({msg: "insufficient privileges"})
     }
-    next()
 }
 
 module.exports = {
-    auth,
-    getRole
+    isAdmin,
+    isSeller
 }

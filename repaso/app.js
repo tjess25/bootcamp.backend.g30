@@ -7,9 +7,6 @@ const { connect } = require('./src/utils/db')
 //import paths
 const usersRoute = require('./src/routes/users')
 
-//import middlewares
-const { getRole } = require('./src/middlewares/authorization')
-
 //conectar la base de datos
 connect()
 
@@ -19,7 +16,6 @@ app.get('/', (req, res) => {
    res.send({ msg: 'API Rest Kodemia gen 30' }) 
 })
 
-app.use(getRole)
 app.use('/users', usersRoute)
 
 app.listen(port, () => {

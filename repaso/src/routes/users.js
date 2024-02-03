@@ -1,10 +1,10 @@
 const express = require('express')
 const router = express.Router()
 //const readFile = require('../utils/readFile')
-const { auth } = require('../middlewares/authorization')
 const User = require('../models/users')
 const UserController = require('../controllers/users')
-const { createJWT } = require('../middlewares/authentication')
+const { createJWT, verifyJWT } = require('../middlewares/authentication')
+const { isAdmin } = require('../middlewares/authorization')
 
 //router.get('/', auth, UserController.getAll)
 
@@ -59,26 +59,32 @@ router.post('/login', async (req, res) => {
         if (user.password != credential.password) {
             res.status(401).send({msg: "invalid password"})
         } else {
-            const token = createJWT({_id: user._id, role: user.role})
+            const token = createJWT({_id: user._id})
             res.send({msg: "login user", data: token})
         }
         
     } catch (error) {
         res.status(400).send({msg: "login ivalid", error: error})
+    }   
+})
+
+router.put('/:id', verifyJWT, async (req, res) => {
+    try {
+        console.log(req.user) 
+        const id = req.params.id
+        if (id != req.user._id) {
+            res.status(401).send({msg: "user not authorized"}) 
+        } else {
+            res.status(201).send({msg: "user updated"})
+        }
+        
+    } catch (error) {
+        res.status(400).send({msg: "user not updated"})
     }
-    
 })
 
-router.put('/:id', auth, async (req, res) => {
-    res.send({ msg: "user updated", data: {} })
-})
-
-router.delete('/:id', auth, async (req, res) => {
-    if (req.user.role != "admin") {
-        res.status(401).send( {msg: "You do not have the privileges to perform this action"} ) 
-    } else {
-        res.send({ msg: "user deleted", data: {} })
-    }    
+router.delete('/:id', verifyJWT, isAdmin,  async (req, res) => {
+    res.send({ msg: "user deleted", data: {} })  
 })
 
 
