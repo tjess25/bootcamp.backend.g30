@@ -15,7 +15,7 @@ router.post('/login', async (req, res) => {
         if (!user) {
             res.status(401).send({msg: "user not found"})
         }
-        if (user.password != credential.password) {
+        if (!(await User.isValidPassword(credential.password, user.password))) {
             res.status(401).send({msg: "invalid password"})
         } else {
             const token = createJWT({_id: user._id})
@@ -27,7 +27,7 @@ router.post('/login', async (req, res) => {
     }   
 })
 
-router.use(verifyJWT) // ESTE MIDDLEWARE ES VALIDO PARA TODOS LOS ENDPOINTS QUE ESTAN DEBAJO
+//router.use(verifyJWT) // ESTE MIDDLEWARE ES VALIDO PARA TODOS LOS ENDPOINTS QUE ESTAN DEBAJO
 
 router.get('/', async (req, res) => {
     try {
@@ -51,6 +51,7 @@ router.get('/:id', async (req, res) => {
 router.post('/', async (req, res) => {
     try {
         const newUser = req.body
+        newUser.password = await User.encryptPassword(newUser.password)
         let user = await User.create(newUser)
         await user.save()
         res.status(201).send({ msg: "user created", data: user})
